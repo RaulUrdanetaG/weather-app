@@ -1,8 +1,13 @@
 /* eslint-disable no-use-before-define */
 import closeImg from '../assets/close-outline.svg';
-import { signInWithEmail, logInWithEmail, logOut } from '../utils/firebaseApp';
-
-import { signInWithGoogle } from '../utils/firebaseApp';
+import googleLogo from '../assets/logo-google.svg';
+import titleLogo from '../assets/partly_cloudy_day.svg';
+import {
+  signInWithEmail,
+  signInWithGoogle,
+  logInWithEmail,
+  logOut,
+} from '../utils/firebaseApp';
 
 const header = document.querySelector('header');
 
@@ -10,19 +15,22 @@ function createSignInModal() {
   const signInModalContainer = document.createElement('div');
   signInModalContainer.id = 'sign-in-modal';
   signInModalContainer.innerHTML = `<img class = 'close-img' src = '${closeImg}'>
+                                    <h4>Sign In</h4>
                                     <form class = 'sign-in'>
+                                      <label for = 'email'>Email:</label>
                                       <input name = 'email' type = 'email' placeholder = 'email@example.com'>
-                                      <input name = 'password' type = 'password' placeholder = 'your password'>
-                                      <button id = 'sign-in'>Sign In</button>
+                                      <label for = 'password'>Password:</label>
+                                      <input name = 'password' type = 'password' placeholder = 'Your password'>
+                                      <button id = 'sign-in-button'>Sign In</button>
                                     </form>
-                                    <h6>OR</h6>
-                                    <button id = 'google-sign-in'>Sign in with google</button>`;
+                                    <h6>or</h6>
+                                    <button id = 'google-sign-in'><img class = 'google-logo'src ='${googleLogo}'>Sign in with google</button>`;
   header.appendChild(signInModalContainer);
 
   const signInWithGoogleBtn = document.getElementById('google-sign-in');
   signInWithGoogleBtn.addEventListener('click', () => {
-    removeSignInModal();
     signInWithGoogle();
+    removeSignInModal();
   });
   const signIn = document.querySelector('.sign-in');
   signIn.addEventListener('submit', (e) => {
@@ -49,19 +57,22 @@ function createLogInModal() {
   const logInModalContainer = document.createElement('div');
   logInModalContainer.id = 'log-in-modal';
   logInModalContainer.innerHTML = `<img class = 'close-img' src = '${closeImg}'>
+                                    <h4>Log In</h4>
                                     <form class = log-in>
+                                      <label for = 'email'>Email:</label>
                                       <input name = 'email' type='email' placeholder = 'email@example.com'>
-                                      <input name = 'password' type='password' placeholder='password'>
+                                      <label for = 'password'>Password:</label>
+                                      <input name = 'password' type='password' placeholder='Your password'>
                                       <button id='log-in-button'>Log In</button>
                                     </form>
-                                    <h6>OR</h6>
-                                    <button id = 'google-log-in'>Log in with google</button>`;
+                                    <h6>or</h6>
+                                    <button id = 'google-log-in'><img class = 'google-logo'src ='${googleLogo}'>Log in with google</button>`;
   header.appendChild(logInModalContainer);
 
   const logInWithGoogleBtn = document.getElementById('google-log-in');
   logInWithGoogleBtn.addEventListener('click', () => {
-    removeLogInModal();
     signInWithGoogle();
+    removeLogInModal();
   });
 
   const logIn = document.querySelector('.log-in');
@@ -71,7 +82,6 @@ function createLogInModal() {
     const password = logIn.password.value;
     logInWithEmail(email, password);
     logIn.reset();
-    removeLogInModal();
   });
 
   const closeBtn = document.querySelector('.close-img');
@@ -96,7 +106,10 @@ function createLogInButtons() {
   logInBtns.appendChild(signInBtn);
 
   signInBtn.onclick = () => {
-    createSignInModal();
+    const logInModal = document.getElementById('log-in-modal');
+    const signInModal = document.getElementById('sign-in-modal');
+    logInModal ? removeLogInModal() : undefined;
+    signInModal ? undefined : createSignInModal();
   };
 
   const logInBtn = document.createElement('button');
@@ -105,7 +118,10 @@ function createLogInButtons() {
   logInBtns.appendChild(logInBtn);
 
   logInBtn.onclick = () => {
-    createLogInModal();
+    const signInModal = document.getElementById('sign-in-modal');
+    const logInModal = document.getElementById('log-in-modal');
+    signInModal ? removeSignInModal() : undefined;
+    logInModal ? undefined : createLogInModal();
   };
 
   header.appendChild(logInBtns);
@@ -114,8 +130,9 @@ function createLogInButtons() {
 function createLogOut(user) {
   const logOutContainer = document.createElement('div');
   logOutContainer.id = 'log-out-container';
-  logOutContainer.innerHTML = `<h5>Logged in as: ${user.email}</h5>
-                                <button id = 'log-out-button'>Log Out</button>`;
+  logOutContainer.innerHTML = `<h6>Logged in as:</h6>
+                              <h5>${user.email}</h5>
+                              <button id = 'log-out-button'>Log Out</button>`;
   header.appendChild(logOutContainer);
 
   const logOutBtn = document.getElementById('log-out-button');
@@ -135,7 +152,7 @@ function removeLogOut() {
   header.removeChild(logOutContainer);
 }
 
-export function setUpNavBar(user) {
+export function updateNavBar(user) {
   const logOutContainer = document.getElementById('log-out-container');
   const logInBtns = document.getElementById('log-in-container');
   if (user) {
@@ -147,6 +164,15 @@ export function setUpNavBar(user) {
   }
 }
 
+export function handleLogInErr(error) {
+  console.log(error.code);
+}
+
 export default function createNavBar() {
-  // createLogInButtons();
+  const headerTitle = document.createElement('h2');
+  headerTitle.id = 'header-title';
+  headerTitle.innerHTML = `<img class = 'title-logo' src = '${titleLogo}'>
+                          Sky Scope`;
+
+  header.appendChild(headerTitle);
 }

@@ -1,6 +1,5 @@
 /* eslint-disable no-use-before-define */
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { EventEmitter } from 'events';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -13,7 +12,7 @@ import {
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-import { setUpNavBar } from '../modules/nav-bar';
+import { updateNavBar, handleLogInErr } from '../modules/nav-bar';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDT0ETwyhjAxMiiPsLM2oyt-cfsSgfW3l0',
@@ -36,10 +35,7 @@ export async function signInWithGoogle() {
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
   } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    const email = error.customData.email;
-    const credential = GoogleAuthProvider.credentialFromError(error);
+    handleLogInErr(error);
   }
 }
 
@@ -47,7 +43,7 @@ export async function signInWithEmail(email, password) {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
   } catch (error) {
-    console.log(error.message);
+    handleLogInErr(error);
   }
 }
 
@@ -55,22 +51,21 @@ export async function logInWithEmail(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
-    console.log(error.message);
+    handleLogInErr(error);
   }
 }
 export async function logOut() {
   try {
     await signOut(auth);
-    // console.log('logged out');
   } catch (error) {
-    console.log(error.message);
+    handleLogInErr(error);
   }
 }
 
 onAuthStateChanged(auth, async (user) => {
   try {
-    setUpNavBar(user);
+    updateNavBar(user);
   } catch (error) {
-    console.log(error);
+    handleLogInErr(error);
   }
 });
