@@ -1,0 +1,35 @@
+@import '../styles/fonts';
+#sign-in-modal {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  max-height: auto;
+
+  h6 {
+    align-self: center;
+  }
+
+  .sign-in{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .close-img {
+    width: 30px;
+    align-self: end;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
+
+#log-in-modal{
+  max-width: 300px;
+
+  .log-in{
+    display: flex;
+    flex-direction: column;
+  }
+
+}

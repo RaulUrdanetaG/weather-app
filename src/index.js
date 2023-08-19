@@ -1,11 +1,4 @@
-import signInWithGoogle from './utils/googleAuth';
+import './styles/styles.scss';
+import loadHome from './modules/UI';
 
-const body = document.querySelector('body');
-const button = document.createElement('button');
-button.innerText = 'sign up with google';
-
-body.appendChild(button);
-
-button.onclick = () => {
-  signInWithGoogle();
-};
+loadHome();
