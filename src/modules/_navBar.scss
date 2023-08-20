@@ -83,10 +83,15 @@ header {
       background-color: $primary-color;
     }
 
-    h6 {
+    .error-text {
+      text-align: center;
+      color: $error-color;
+    }
+
+    .separator {
       display: flex;
       align-self: center;
-      &::before{
+      &::before {
         position: relative;
         top: 12px;
         right: 10px;
@@ -95,7 +100,7 @@ header {
         width: 100px;
         background-color: $font-dark-color;
       }
-      &::after{
+      &::after {
         position: relative;
         top: 12px;
         left: 10px;

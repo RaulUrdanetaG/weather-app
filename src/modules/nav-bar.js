@@ -15,16 +15,17 @@ function createSignInModal() {
   const signInModalContainer = document.createElement('div');
   signInModalContainer.id = 'sign-in-modal';
   signInModalContainer.innerHTML = `<img class = 'close-img' src = '${closeImg}'>
-                                    <h4>Sign In</h4>
+                                    <h4 class = 'form-title'>Sign Up</h4>
+                                    <h6 class = 'error-text'></h6>
                                     <form class = 'sign-in'>
                                       <label for = 'email'>Email:</label>
                                       <input name = 'email' type = 'email' placeholder = 'email@example.com'>
                                       <label for = 'password'>Password:</label>
                                       <input name = 'password' type = 'password' placeholder = 'Your password'>
-                                      <button id = 'sign-in-button'>Sign In</button>
+                                      <button id = 'sign-in-button'>Sign Up</button>
                                     </form>
-                                    <h6>or</h6>
-                                    <button id = 'google-sign-in'><img class = 'google-logo'src ='${googleLogo}'>Sign in with google</button>`;
+                                    <h6 class = 'separator'>or</h6>
+                                    <button id = 'google-sign-in'><img class = 'google-logo'src ='${googleLogo}'>Sign up with google</button>`;
   header.appendChild(signInModalContainer);
 
   const signInWithGoogleBtn = document.getElementById('google-sign-in');
@@ -38,8 +39,6 @@ function createSignInModal() {
     const email = signIn.email.value;
     const password = signIn.password.value;
     signInWithEmail(email, password);
-    signIn.reset();
-    removeSignInModal();
   });
 
   const closeBtn = document.querySelector('.close-img');
@@ -48,7 +47,7 @@ function createSignInModal() {
   };
 }
 
-function removeSignInModal() {
+export function removeSignInModal() {
   const signInModalContainer = document.getElementById('sign-in-modal');
   header.removeChild(signInModalContainer);
 }
@@ -57,7 +56,8 @@ function createLogInModal() {
   const logInModalContainer = document.createElement('div');
   logInModalContainer.id = 'log-in-modal';
   logInModalContainer.innerHTML = `<img class = 'close-img' src = '${closeImg}'>
-                                    <h4>Log In</h4>
+                                    <h4 class = 'form-title'>Log In</h4>
+                                    <h6 class = 'error-text'></h6>
                                     <form class = log-in>
                                       <label for = 'email'>Email:</label>
                                       <input name = 'email' type='email' placeholder = 'email@example.com'>
@@ -65,7 +65,7 @@ function createLogInModal() {
                                       <input name = 'password' type='password' placeholder='Your password'>
                                       <button id='log-in-button'>Log In</button>
                                     </form>
-                                    <h6>or</h6>
+                                    <h6 class = 'separator'>or</h6>
                                     <button id = 'google-log-in'><img class = 'google-logo'src ='${googleLogo}'>Log in with google</button>`;
   header.appendChild(logInModalContainer);
 
@@ -81,7 +81,6 @@ function createLogInModal() {
     const email = logIn.email.value;
     const password = logIn.password.value;
     logInWithEmail(email, password);
-    logIn.reset();
   });
 
   const closeBtn = document.querySelector('.close-img');
@@ -90,7 +89,7 @@ function createLogInModal() {
   };
 }
 
-function removeLogInModal() {
+export function removeLogInModal() {
   const logInModal = document.getElementById('log-in-modal');
   header.removeChild(logInModal);
 }
@@ -102,7 +101,7 @@ function createLogInButtons() {
 
   const signInBtn = document.createElement('button');
   signInBtn.id = 'sign-in-button';
-  signInBtn.innerText = 'Sign In';
+  signInBtn.innerText = 'Sign Up';
   logInBtns.appendChild(signInBtn);
 
   signInBtn.onclick = () => {
@@ -165,7 +164,32 @@ export function updateNavBar(user) {
 }
 
 export function handleLogInErr(error) {
-  console.log(error.code);
+  const errorText = document.querySelector('.error-text');
+  switch (error.code) {
+    case 'auth/invalid-email':
+      errorText.innerText = `Please enter a valid email`;
+      break;
+    case 'auth/email-already-in-use':
+      errorText.innerText = `User already exists, try logging in`;
+      break;
+    case 'auth/user-not-found':
+      errorText.innerText = `User does not exist, try signing up`;
+      break;
+    case 'auth/wrong-password':
+      errorText.innerText = `Wrong email or password`;
+      break;
+    case 'auth/missing-password':
+      errorText.innerText = `Please enter a password`;
+      break;
+    case 'auth/missing-email':
+      errorText.innerText = `Please enter a valid email`;
+      break;
+    case 'auth/weak-password':
+      errorText.innerText = `Password should be at least 6 characters`;
+      break;
+    default:
+      break;
+  }
 }
 
 export default function createNavBar() {

@@ -12,7 +12,12 @@ import {
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-import { updateNavBar, handleLogInErr } from '../modules/nav-bar';
+import {
+  updateNavBar,
+  handleLogInErr,
+  removeLogInModal,
+  removeSignInModal,
+} from '../modules/nav-bar';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDT0ETwyhjAxMiiPsLM2oyt-cfsSgfW3l0',
@@ -42,6 +47,7 @@ export async function signInWithGoogle() {
 export async function signInWithEmail(email, password) {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
+    removeSignInModal();
   } catch (error) {
     handleLogInErr(error);
   }
@@ -50,6 +56,7 @@ export async function signInWithEmail(email, password) {
 export async function logInWithEmail(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    removeLogInModal();
   } catch (error) {
     handleLogInErr(error);
   }
