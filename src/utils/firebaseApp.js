@@ -66,7 +66,6 @@ export async function addCity(cityName) {
       await updateDoc(userDocRef, {
         cities: arrayUnion(cityName),
       });
-      console.log(updateResponse);
     } catch (error) {
       console.log(error);
     }

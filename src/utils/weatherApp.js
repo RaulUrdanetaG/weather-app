@@ -10,5 +10,6 @@ export async function makeWeatherRequest(cityName) {
     console.log(weatherInfo);
   } catch (error) {
     console.log(error);
+    return false;
   }
 }
