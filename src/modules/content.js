@@ -19,7 +19,7 @@ export function updateSearchBar(user) {
     searchCity.innerHTML = `<div class = 'search-form'>
                               <img src = '${searchLogo}'>
                               <form id = 'city-form'>
-                                <input id = 'city-search' type = 'text' placeholder = 'search location'>
+                                <input id = 'city-search' type = 'text' placeholder = 'search location' autocomplete = 'off'>
                               </form>
                             </div>
                             <h6 class = 'error-search-text'></h6>
