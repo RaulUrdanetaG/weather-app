@@ -25,9 +25,13 @@ import {
   removeSignInModal,
 } from '../modules/nav-bar';
 
-import { updateSearchBar } from '../modules/content';
+import {
+  updateSearchBar,
+  handleSearchErr,
+  clearSearchForm,
+} from '../modules/content';
 
-import { makeWeatherRequest } from './weatherApp';
+import { checkCityExistance } from './weatherApp';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDT0ETwyhjAxMiiPsLM2oyt-cfsSgfW3l0',
@@ -55,20 +59,21 @@ async function addUserToDb(user) {
 
 export async function addCity(cityName) {
   const currentUser = auth.currentUser;
-  makeWeatherRequest(cityName);
-  console.log(currentUser);
 
-  if (currentUser) {
-    const uid = currentUser.uid;
-    const userDocRef = doc(db, 'users', uid);
+  const uid = currentUser.uid;
+  const userDocRef = doc(db, 'users', uid);
 
+  const checkResult = await checkCityExistance(cityName);
+  if (checkResult) {
+    clearSearchForm();
+    handleSearchErr(false); // dont handle error
     try {
       await updateDoc(userDocRef, {
         cities: arrayUnion(cityName),
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
+  } else {
+    handleSearchErr(true); //handle error
   }
 }
 

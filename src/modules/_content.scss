@@ -29,6 +29,11 @@ section {
       }
     }
 
+    .error-search-text{
+      color: $error-color;
+      text-align: center;
+    }
+
     .search-buttons {
       display: flex;
       gap: 20px;

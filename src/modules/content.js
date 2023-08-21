@@ -22,6 +22,7 @@ export function updateSearchBar(user) {
                                 <input id = 'city-search' type = 'text' placeholder = 'search location'>
                               </form>
                             </div>
+                            <h6 class = 'error-search-text'></h6>
                             <div class = 'search-buttons'>
                               <button type = 'submit' form = 'city-form' id = 'search-button' class = 'city-button'>Search</button>
                               <button id = 'refresh-button' class = 'city-button'>Refresh</button>
@@ -35,11 +36,24 @@ export function updateSearchBar(user) {
       const cityName = cityNameInput.value;
       addCity(cityName);
     });
-
   } else {
     const searchBar = document.getElementById('search-city');
     const contentSection = document.querySelector('section');
 
     contentSection.removeChild(searchBar);
   }
+}
+
+export function clearSearchForm() {
+  const searchForm = document.getElementById('city-search');
+
+  searchForm.value = '';
+}
+
+export function handleSearchErr(clearBool) {
+  const errorSearchText = document.querySelector('.error-search-text');
+
+  clearBool
+    ? (errorSearchText.innerHTML = 'Please enter a valid location')
+    : (errorSearchText.innerHTML = '');
 }

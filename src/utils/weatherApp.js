@@ -7,9 +7,21 @@ export async function makeWeatherRequest(cityName) {
       { mode: 'cors' }
     );
     const weatherInfo = await response.json();
-    console.log(weatherInfo);
+    return weatherInfo;
   } catch (error) {
     console.log(error);
-    return false;
+  }
+}
+
+export async function checkCityExistance(cityName) {
+  try {
+    const response = await fetch(
+      `https://api.weatherapi.com/v1/forecast.json?key=${weatherAPIkey}&q=${cityName}`,
+      { mode: 'cors' }
+    );
+    const data = await response.json();
+    return data.error ? false : true; 
+  } catch (error) {
+    console.log(error);
   }
 }
