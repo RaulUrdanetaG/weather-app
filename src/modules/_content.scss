@@ -1,0 +1,61 @@
+@import '../styles/fonts';
+@import '../styles/colors';
+
+section {
+  width: 100%;
+  flex: 1;
+
+  #search-city {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      #city-search {
+        font-size: 20px;
+        border: none;
+        background-color: $secondary-color;
+        color: white;
+        border-bottom: 2px solid $primary-color;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .search-buttons {
+      display: flex;
+      gap: 20px;
+
+      .city-button {
+        font-size: 20px;
+        border-radius: 10px;
+        border: 2px solid $primary-color;
+        background-color: $secondary-color;
+        color: $font-dark-color;
+
+        &:hover {
+          cursor: pointer;
+          box-shadow: $box-shadow-dark;
+        }
+      }
+    }
+
+    img {
+      filter: $svg-icon-color;
+      width: 30px;
+    }
+
+    margin: 118px 30px 10px;
+  }
+  #content-grid {
+    display: grid;
+    margin: 10px 30px;
+  }
+}

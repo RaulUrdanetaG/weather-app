@@ -10,7 +10,13 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import {
+  getFirestore,
+  updateDoc,
+  arrayUnion,
+  doc,
+  setDoc,
+} from 'firebase/firestore';
 
 import {
   updateNavBar,
@@ -18,6 +24,10 @@ import {
   removeLogInModal,
   removeSignInModal,
 } from '../modules/nav-bar';
+
+import { updateSearchBar } from '../modules/content';
+
+import { makeWeatherRequest } from './weatherApp';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDT0ETwyhjAxMiiPsLM2oyt-cfsSgfW3l0',
@@ -30,6 +40,39 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 
+// firestore database
+
+const db = getFirestore();
+
+async function addUserToDb(user) {
+  const userDocRef = doc(db, 'users', user.uid);
+  try {
+    await setDoc(userDocRef, { cities: [] });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addCity(cityName) {
+  const currentUser = auth.currentUser;
+  makeWeatherRequest(cityName);
+  console.log(currentUser);
+
+  if (currentUser) {
+    const uid = currentUser.uid;
+    const userDocRef = doc(db, 'users', uid);
+
+    try {
+      await updateDoc(userDocRef, {
+        cities: arrayUnion(cityName),
+      });
+      console.log(updateResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
 // authentication
 const auth = getAuth(app);
 
@@ -39,6 +82,7 @@ export async function signInWithGoogle() {
     const result = await signInWithPopup(auth, provider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
+    addUserToDb(result.user); // Creates user as doc in firestore
   } catch (error) {
     handleLogInErr(error);
   }
@@ -46,8 +90,9 @@ export async function signInWithGoogle() {
 
 export async function signInWithEmail(email, password) {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
     removeSignInModal();
+    addUserToDb(result.user); // Creates user as doc in firestore
   } catch (error) {
     handleLogInErr(error);
   }
@@ -72,6 +117,7 @@ export async function logOut() {
 onAuthStateChanged(auth, async (user) => {
   try {
     updateNavBar(user);
+    updateSearchBar(user);
   } catch (error) {
     handleLogInErr(error);
   }

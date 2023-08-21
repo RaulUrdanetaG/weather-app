@@ -1,16 +1,26 @@
 @import '../modules/_navBar.scss';
+@import '../modules/_footer.scss';
+@import '../modules/_content.scss';
 @import './colors';
 
 body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
 
   #content {
-    width: 100%;
-    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    min-height: 100vh;
     background-color: $secondary-color;
   }
+
+  overflow-x: hidden;
+}
+
+input {
+  font-family: 'Montserrat', sans-serif;
 }
 
 button {
@@ -19,4 +29,14 @@ button {
 
 .hidden {
   display: none;
+}
+
+#popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+img {
+  width: 1100px;
 }

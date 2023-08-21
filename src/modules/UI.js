@@ -1,4 +1,6 @@
 import createNavBar from './nav-bar';
+import createContent from './content';
+import createFooter from './footer';
 import titleLogo from '../assets/partly_cloudy_day.svg';
 
 export default function loadHome() {
@@ -6,4 +8,6 @@ export default function loadHome() {
   titleImg.href = titleLogo;
 
   createNavBar();
+  createContent();
+  createFooter();
 }
