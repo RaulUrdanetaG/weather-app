@@ -65,10 +65,10 @@ section {
   #content-grid {
     display: grid;
     margin: 10px 20px;
-    grid-template-columns: repeat(auto-fill, minmax(462px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+    gap: 25px;
 
     .city-container {
-      max-width: 465px;
       color: $font-dark-color;
       background-color: $lighter-secondary-color;
       border-radius: 10px;
@@ -89,7 +89,7 @@ section {
 
       .current-weather {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         gap: 15px;
         padding: 5px 10px;
         border-bottom: 2px solid $primary-color;
@@ -132,8 +132,6 @@ section {
           width: 45px;
         }
       }
-
-      margin: 20px;
     }
   }
 }
