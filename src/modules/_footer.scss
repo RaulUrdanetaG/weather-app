@@ -1,18 +1,21 @@
 @import '../styles/fonts';
 @import '../styles/colors';
 
-.creator-info {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  a,
-  h6 {
-    text-decoration: none;
-    color: $font-dark-color;
-  }
-  img {
-    width: 30px;
-    filter: $svg-icon-color;
+footer {
+  max-width: 100%;
+  .creator-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 40px;
+    a,
+    h6 {
+      text-decoration: none;
+      color: $font-dark-color;
+    }
+    img {
+      width: 30px;
+      filter: $svg-icon-color;
+    }
   }
 }

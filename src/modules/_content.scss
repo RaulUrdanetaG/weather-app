@@ -61,13 +61,14 @@ section {
 
     margin: 118px 30px 10px;
   }
+
   #content-grid {
     display: grid;
-    margin: 10px 30px;
-    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+    margin: 10px 20px;
+    grid-template-columns: repeat(auto-fill, minmax(462px, 1fr));
 
     .city-container {
-      max-width: 440px;
+      max-width: 465px;
       color: $font-dark-color;
       background-color: $lighter-secondary-color;
       border-radius: 10px;
@@ -76,6 +77,9 @@ section {
       .city-title {
         border-bottom: 2px solid $primary-color;
         padding: 5px 10px;
+        h5{
+          height: 29px;
+        }
       }
 
       .local-time {

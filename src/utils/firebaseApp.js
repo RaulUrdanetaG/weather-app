@@ -30,6 +30,7 @@ import {
   updateSearchBar,
   handleSearchErr,
   clearSearchForm,
+  createCityWeather,
 } from '../modules/content';
 
 import { checkCityExistance } from './weatherApp';
@@ -52,7 +53,7 @@ const db = getFirestore();
 async function addUserToDb(user) {
   const userDocRef = doc(db, 'users', user.uid);
   try {
-    await setDoc(userDocRef, { units: 'metric', cities: [] });
+    await setDoc(userDocRef, { units: 'metric', cities: [] }); // new user sets metric system as default
   } catch (error) {
     console.log(error);
   }
@@ -66,12 +67,19 @@ export async function addCity(cityName) {
 
   const checkResult = await checkCityExistance(cityName);
   if (checkResult) {
+    // if city exists add it to database
     clearSearchForm();
     handleSearchErr(false); // dont handle error
     try {
-      await updateDoc(userDocRef, {
-        cities: arrayUnion(cityName),
-      });
+      const userCities = await getUserCities();
+      // if city already exists dont do anything
+      if (userCities.some((city) => city === cityName)) {
+      } else {
+        await updateDoc(userDocRef, {
+          cities: arrayUnion(cityName),
+        });
+        createCityWeather(cityName);
+      }
     } catch (error) {}
   } else {
     handleSearchErr(true); //handle error
@@ -105,7 +113,8 @@ export async function updateUserUnits(units) {
   } catch (error) {}
 }
 
-export async function getUserUnits(){
+// searchs in database user unit system preferences
+export async function getUserUnits() {
   const currentUser = auth.currentUser;
 
   const uid = currentUser.uid;

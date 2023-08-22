@@ -43,12 +43,14 @@ export function updateSearchBar(user) {
 
     const refreshBtn = document.getElementById('refresh-button');
     refreshBtn.onclick = () => {
-      getUserCities().then((cities) => createCityWeather(cities[7]));
+      updateCitiesGrid();
     };
 
     const contentGrid = document.createElement('div');
     contentGrid.id = 'content-grid';
     contentSection.appendChild(contentGrid);
+
+    updateCitiesGrid();
   } else {
     const searchBar = document.getElementById('search-city');
     const contentSection = document.querySelector('section');
@@ -65,7 +67,7 @@ export function clearSearchForm() {
   searchForm.value = '';
 }
 
-async function createCityWeather(cityName) {
+export async function createCityWeather(cityName) {
   const contentGrid = document.getElementById('content-grid');
 
   const cityWeather = await makeWeatherRequest(cityName);
@@ -128,9 +130,6 @@ async function createCityWeather(cityName) {
     tempUnits = '°F';
     speedUnits = 'mph';
   }
-
-  console.log(formatDate(cityWeather.location.localtime));
-  console.log(formatDate(cityWeather.forecast.forecastday[0].date));
 
   const cityWeatherContainer = document.createElement('div');
   cityWeatherContainer.classList.add('city-container');
@@ -243,7 +242,17 @@ async function createCityWeather(cityName) {
                           } ${tempUnits}</h6>
                         </div>`;
   cityWeatherContainer.appendChild(forecast);
-  console.log(cityWeather);
+}
+
+async function updateCitiesGrid() {
+  const citiesGrid = document.getElementById('content-grid');
+  citiesGrid.innerHTML = '';
+
+  const userCities = await getUserCities();
+
+  userCities.forEach((city) => {
+    createCityWeather(city);
+  });
 }
 
 export function handleSearchErr(clearBool) {
