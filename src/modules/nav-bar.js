@@ -2,11 +2,14 @@
 import closeImg from '../assets/close-outline.svg';
 import googleLogo from '../assets/logo-google.svg';
 import titleLogo from '../assets/partly_cloudy_day.svg';
+import { setUnits } from './content';
 import {
   signInWithEmail,
   signInWithGoogle,
   logInWithEmail,
   logOut,
+  getUserUnits,
+  updateUserUnits,
 } from '../utils/firebaseApp';
 
 const header = document.querySelector('header');
@@ -151,15 +154,62 @@ function removeLogOut() {
   header.removeChild(logOutContainer);
 }
 
+function addUnitBtns() {
+  const unitBtns = document.createElement('div');
+  unitBtns.id = 'unit-buttons';
+  unitBtns.innerHTML = `<button id = 'celsius-button'>°C | kph</button>
+                        <button id = 'farenheit-button'>°F | mph</button>`;
+  header.appendChild(unitBtns);
+
+  updateUnitBtns();
+}
+
+function updateUnitBtns() {
+  const celsiusBtn = document.getElementById('celsius-button');
+  const farenheitBtn = document.getElementById('farenheit-button');
+  celsiusBtn.onclick = () => {
+    updateUserUnits('metric');
+    celsiusBtn.classList.add('selected');
+    farenheitBtn.classList.remove('selected');
+    setUnits('metric');
+  };
+  
+  farenheitBtn.onclick = () => {
+    updateUserUnits('imperial');
+    celsiusBtn.classList.remove('selected');
+    farenheitBtn.classList.add('selected');
+    setUnits('imperial');
+  };
+
+  getUserUnits().then((response) => {
+    if (response === 'metric') {
+      celsiusBtn.classList.add('selected');
+      farenheitBtn.classList.remove('selected');
+      setUnits(response);
+    } else if (response === 'imperial') {
+      celsiusBtn.classList.remove('selected');
+      farenheitBtn.classList.add('selected');
+      setUnits(response);
+    }
+  });
+}
+
+function removeUnitBtns() {
+  const unitBtns = document.getElementById('unit-buttons');
+  header.removeChild(unitBtns);
+}
+
 export function updateNavBar(user) {
   const logOutContainer = document.getElementById('log-out-container');
   const logInBtns = document.getElementById('log-in-container');
   if (user) {
     logInBtns ? removeLogInButtons() : undefined;
     createLogOut(user);
+    addUnitBtns();
   } else {
     logOutContainer ? removeLogOut() : undefined;
     createLogInButtons();
+    removeUnitBtns();
   }
 }
 

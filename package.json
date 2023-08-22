@@ -30,6 +30,8 @@
     "webpack-merge": "^5.9.0"
   },
   "dependencies": {
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
     "firebase": "^10.2.0"
   }
 }

@@ -12,6 +12,7 @@ import {
 } from 'firebase/auth';
 import {
   getFirestore,
+  getDoc,
   updateDoc,
   arrayUnion,
   doc,
@@ -51,7 +52,7 @@ const db = getFirestore();
 async function addUserToDb(user) {
   const userDocRef = doc(db, 'users', user.uid);
   try {
-    await setDoc(userDocRef, { cities: [] });
+    await setDoc(userDocRef, { units: 'metric', cities: [] });
   } catch (error) {
     console.log(error);
   }
@@ -74,6 +75,47 @@ export async function addCity(cityName) {
     } catch (error) {}
   } else {
     handleSearchErr(true); //handle error
+  }
+}
+
+export async function getUserCities() {
+  const currentUser = auth.currentUser;
+
+  const uid = currentUser.uid;
+  const userDocRef = doc(db, 'users', uid);
+
+  try {
+    const userCitiesSnapshot = await getDoc(userDocRef);
+    return userCitiesSnapshot.data().cities;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateUserUnits(units) {
+  const currentUser = auth.currentUser;
+
+  const uid = currentUser.uid;
+  const userDocRef = doc(db, 'users', uid);
+
+  try {
+    await updateDoc(userDocRef, {
+      units: `${units}`,
+    });
+  } catch (error) {}
+}
+
+export async function getUserUnits(){
+  const currentUser = auth.currentUser;
+
+  const uid = currentUser.uid;
+  const userDocRef = doc(db, 'users', uid);
+
+  try {
+    const userCitiesSnapshot = await getDoc(userDocRef);
+    return userCitiesSnapshot.data().units;
+  } catch (error) {
+    console.log(error);
   }
 }
 
