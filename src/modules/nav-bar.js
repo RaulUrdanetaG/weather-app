@@ -133,7 +133,7 @@ function createLogOut(user) {
   const logOutContainer = document.createElement('div');
   logOutContainer.id = 'log-out-container';
   logOutContainer.innerHTML = `<h6>Logged in as:</h6>
-                              <h5>${user.email}</h5>
+                              <h5 class = 'user-mail'>${user.email}</h5>
                               <button id = 'log-out-button'>Log Out</button>`;
   header.appendChild(logOutContainer);
 
@@ -156,10 +156,11 @@ function removeLogOut() {
 
 function addUnitBtns() {
   const unitBtns = document.createElement('div');
+  const title = document.getElementById('header-title');
   unitBtns.id = 'unit-buttons';
   unitBtns.innerHTML = `<button id = 'celsius-button'>°C | kph</button>
                         <button id = 'farenheit-button'>°F | mph</button>`;
-  header.appendChild(unitBtns);
+  header.insertBefore(unitBtns, title);
 
   updateUnitBtns();
 }

@@ -40,3 +40,63 @@ button {
 img {
   width: 1100px;
 }
+
+@media (max-width: 960px) {
+  header {
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+
+    #header-title {
+      margin-left: 20px;
+    }
+
+    #log-in-container {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    #log-out-container {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    #unit-buttons {
+      position: absolute;
+      bottom: 45%;
+      right: 20px;
+    }
+  }
+
+  section {
+    #search-city {
+      margin-top: 200px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  header {
+    #unit-buttons {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+}
+
+@media (max-width: 460px) {
+  header {
+    #header-title {
+      font-size: 48px;
+      margin: 10px 20px;
+      justify-content: start;
+    }
+  }
+
+  section{
+    #content-grid{
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -205,7 +205,7 @@ export async function createCityWeather(cityName) {
                             cityWeather.forecast.forecastday[1].day.condition.icon}'>
                           <h5 class = 'max-temp'>${forecastDays[1][0]} ${tempUnits}</h5>
                           <h6 class = 'min-temp'>${forecastDays[1][1]} ${tempUnits}</h6>
-                        </di
+                        </div>
                         <div class = 'forecast-day'>
                           <h5>${formatDay(cityWeather.forecast.forecastday[3].date)}</h5>
                           <img src = '${
