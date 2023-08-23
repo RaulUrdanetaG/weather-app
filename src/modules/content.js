@@ -1,5 +1,6 @@
 import searchLogo from '../assets/search-outline.svg';
-import { addCity, getUserCities } from '../utils/firebaseApp';
+import closeImg from '../assets/close-outline.svg';
+import { addCity, removeCity, getUserCities } from '../utils/firebaseApp';
 import { makeWeatherRequest, formatDate, formatDay } from '../utils/weatherApp';
 
 const content = document.getElementById('content');
@@ -133,7 +134,17 @@ export async function createCityWeather(cityName) {
 
   const cityWeatherContainer = document.createElement('div');
   cityWeatherContainer.classList.add('city-container');
+  cityWeatherContainer.id = cityName;
   contentGrid.appendChild(cityWeatherContainer);
+
+  const closeBtn = document.createElement('img');
+  closeBtn.classList.add('close-button');
+  closeBtn.src = `${closeImg}`;
+  cityWeatherContainer.appendChild(closeBtn);
+
+  closeBtn.addEventListener('click', async () => {
+    deleteCity(cityWeatherContainer);
+  });
 
   const cityTitle = document.createElement('div');
   cityTitle.classList.add('city-title');
@@ -250,8 +261,8 @@ async function updateCitiesGrid() {
 
   const userCities = await getUserCities();
 
-  userCities.forEach((city) => {
-    createCityWeather(city);
+  userCities.forEach(async (city) => {
+    await createCityWeather(city);
   });
 }
 
@@ -261,4 +272,14 @@ export function handleSearchErr(clearBool) {
   clearBool
     ? (errorSearchText.innerHTML = 'Please enter a valid location')
     : (errorSearchText.innerHTML = '');
+}
+
+async function deleteCity(cityToRemove) {
+  const citiesGrid = document.getElementById('content-grid');
+  citiesGrid.removeChild(cityToRemove);
+
+  const cityName = cityToRemove.id;
+  console.log(cityName);
+
+  await removeCity(cityName);
 }

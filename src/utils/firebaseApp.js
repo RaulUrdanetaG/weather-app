@@ -15,6 +15,7 @@ import {
   getDoc,
   updateDoc,
   arrayUnion,
+  arrayRemove,
   doc,
   setDoc,
 } from 'firebase/firestore';
@@ -76,7 +77,8 @@ export async function addCity(cityName) {
       if (userCities.some((city) => city === cityName)) {
       } else {
         await updateDoc(userDocRef, {
-          cities: arrayUnion(cityName),
+          // put all names in lower case
+          cities: arrayUnion(cityName.toLowerCase()),
         });
         createCityWeather(cityName);
       }
@@ -84,6 +86,19 @@ export async function addCity(cityName) {
   } else {
     handleSearchErr(true); //handle error
   }
+}
+
+export async function removeCity(cityName) {
+  const currentUser = auth.currentUser;
+
+  const uid = currentUser.uid;
+  const userDocRef = doc(db, 'users', uid);
+  try {
+    await updateDoc(userDocRef, {
+      // put all names in lower case
+      cities: arrayRemove(cityName.toLowerCase()),
+    });
+  } catch (error) {}
 }
 
 export async function getUserCities() {
