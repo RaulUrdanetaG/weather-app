@@ -28,7 +28,9 @@ function createSignInModal() {
                                       <button id = 'sign-in-button'>Sign Up</button>
                                     </form>
                                     <h6 class = 'separator'>or</h6>
-                                    <button id = 'google-sign-in'><img class = 'google-logo'src ='${googleLogo}'>Sign up with google</button>`;
+                                    <button id = 'google-sign-in'><img class = 'google-logo'src ='${googleLogo}'>Sign up with google</button>
+                                    <h6 class = 'separator'>or</h6>
+                                    <button class = 'test-user'>Log in with test user</button>`;
   header.appendChild(signInModalContainer);
 
   const signInWithGoogleBtn = document.getElementById('google-sign-in');
@@ -36,12 +38,19 @@ function createSignInModal() {
     signInWithGoogle();
     removeSignInModal();
   });
+
   const signIn = document.querySelector('.sign-in');
   signIn.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = signIn.email.value;
     const password = signIn.password.value;
     signInWithEmail(email, password);
+  });
+
+  const signInTestUser = document.querySelector('.test-user');
+  signInTestUser.addEventListener('click', () => {
+    logInWithEmail('testUser@test.com', 'test123');
+    removeSignInModal();
   });
 
   const closeBtn = document.querySelector('.close-img');
@@ -69,7 +78,9 @@ function createLogInModal() {
                                       <button id='log-in-button'>Log In</button>
                                     </form>
                                     <h6 class = 'separator'>or</h6>
-                                    <button id = 'google-log-in'><img class = 'google-logo'src ='${googleLogo}'>Log in with google</button>`;
+                                    <button id = 'google-log-in'><img class = 'google-logo'src ='${googleLogo}'>Log in with google</button>
+                                    <h6 class = 'separator'>or</h6>
+                                    <button class = 'test-user'>Log in with test user</button>`;
   header.appendChild(logInModalContainer);
 
   const logInWithGoogleBtn = document.getElementById('google-log-in');
@@ -84,6 +95,11 @@ function createLogInModal() {
     const email = logIn.email.value;
     const password = logIn.password.value;
     logInWithEmail(email, password);
+  });
+
+  const signInTestUser = document.querySelector('.test-user');
+  signInTestUser.addEventListener('click', () => {
+    logInWithEmail('testUser@test.com', 'test123');
   });
 
   const closeBtn = document.querySelector('.close-img');

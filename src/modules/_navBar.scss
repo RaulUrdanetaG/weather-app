@@ -123,7 +123,7 @@ header {
         content: '';
         height: 1px;
         width: 100px;
-        background-color: $font-dark-color;
+        background-color: $font-color;
       }
       &::after {
         position: relative;
@@ -132,7 +132,7 @@ header {
         content: '';
         height: 1px;
         width: 100px;
-        background-color: $font-dark-color;
+        background-color: $font-color;
       }
     }
 
@@ -213,6 +213,20 @@ header {
 
     .google-logo {
       width: 20px;
+    }
+
+    .test-user{
+      background-color: $primary-color;
+      padding: 5px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+
+      &:hover{
+        cursor: pointer;
+        box-shadow: $box-shadow;
+      }
     }
 
     border-radius: 10px;
