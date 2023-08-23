@@ -193,69 +193,36 @@ export async function createCityWeather(cityName) {
   const forecast = document.createElement('div');
   forecast.classList.add('forecast');
   forecast.innerHTML = `<div class = 'forecast-day'>
-                          <h5>${formatDay(
-                            cityWeather.forecast.forecastday[1].date
-                          )}</h5>
-                          <img src = '${
-                            cityWeather.forecast.forecastday[0].day.condition
-                              .icon
+                          <h5>${formatDay(cityWeather.forecast.forecastday[1].date)}</h5>
+                          <img src = '${cityWeather.forecast.forecastday[0].day.condition.icon
                           }'>
-                          <h5 class = 'max-temp'>${
-                            forecastDays[0][0]
-                          } ${tempUnits}</h5>
-                          <h6 class = 'min-temp'>${
-                            forecastDays[0][1]
-                          } ${tempUnits}</h6>
+                          <h5 class = 'max-temp'>${forecastDays[0][0]} ${tempUnits}</h5>
+                          <h6 class = 'min-temp'>${forecastDays[0][1]} ${tempUnits}</h6>
                         </div>
                         <div class = 'forecast-day'>
-                          <h5>${formatDay(
-                            cityWeather.forecast.forecastday[2].date
-                          )}</h5>
+                          <h5>${formatDay(cityWeather.forecast.forecastday[2].date)}</h5>
                           <img src = '${
-                            cityWeather.forecast.forecastday[1].day.condition
-                              .icon
-                          }'>
-                          <h5 class = 'max-temp'>${
-                            forecastDays[1][0]
-                          } ${tempUnits}</h5>
-                          <h6 class = 'min-temp'>${
-                            forecastDays[1][1]
-                          } ${tempUnits}</h6>
+                            cityWeather.forecast.forecastday[1].day.condition.icon}'>
+                          <h5 class = 'max-temp'>${forecastDays[1][0]} ${tempUnits}</h5>
+                          <h6 class = 'min-temp'>${forecastDays[1][1]} ${tempUnits}</h6>
+                        </di
+                        <div class = 'forecast-day'>
+                          <h5>${formatDay(cityWeather.forecast.forecastday[3].date)}</h5>
+                          <img src = '${
+                            cityWeather.forecast.forecastday[2].day.condition.icon}'>
+                          <h5 class = 'max-temp'>${forecastDays[2][0]} ${tempUnits}</h5>
+                          <h6 class = 'min-temp'>${forecastDays[2][1]} ${tempUnits}</h6>
                         </div>
                         <div class = 'forecast-day'>
-                          <h5>${formatDay(
-                            cityWeather.forecast.forecastday[3].date
-                          )}</h5>
-                          <img src = '${
-                            cityWeather.forecast.forecastday[2].day.condition
-                              .icon
-                          }'>
-                          <h5 class = 'max-temp'>${
-                            forecastDays[2][0]
-                          } ${tempUnits}</h5>
-                          <h6 class = 'min-temp'>${
-                            forecastDays[2][1]
-                          } ${tempUnits}</h6>
-                        </div>
-                        <div class = 'forecast-day'>
-                          <h5>${formatDay(
-                            cityWeather.forecast.forecastday[4].date
-                          )}</h5>
-                          <img src = '${
-                            cityWeather.forecast.forecastday[3].day.condition
-                              .icon
-                          }'>
-                          <h5 class = 'max-temp'>${
-                            forecastDays[3][0]
-                          } ${tempUnits}</h5>
-                          <h6 class = 'min-temp'>${
-                            forecastDays[3][1]
-                          } ${tempUnits}</h6>
+                          <h5>${formatDay(cityWeather.forecast.forecastday[4].date)}</h5>
+                          <img src = '${cityWeather.forecast.forecastday[3].day.condition.icon}'>
+                          <h5 class = 'max-temp'>${forecastDays[3][0]} ${tempUnits}</h5>
+                          <h6 class = 'min-temp'>${forecastDays[3][1]} ${tempUnits}</h6>
                         </div>`;
   cityWeatherContainer.appendChild(forecast);
 }
 
-async function updateCitiesGrid() {
+export async function updateCitiesGrid() {
   const citiesGrid = document.getElementById('content-grid');
   citiesGrid.innerHTML = '';
 

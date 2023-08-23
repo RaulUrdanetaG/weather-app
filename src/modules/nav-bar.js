@@ -2,7 +2,7 @@
 import closeImg from '../assets/close-outline.svg';
 import googleLogo from '../assets/logo-google.svg';
 import titleLogo from '../assets/partly_cloudy_day.svg';
-import { setUnits } from './content';
+import { setUnits, updateCitiesGrid } from './content';
 import {
   signInWithEmail,
   signInWithGoogle,
@@ -172,13 +172,15 @@ function updateUnitBtns() {
     celsiusBtn.classList.add('selected');
     farenheitBtn.classList.remove('selected');
     setUnits('metric');
+    updateCitiesGrid();
   };
-  
+
   farenheitBtn.onclick = () => {
     updateUserUnits('imperial');
     celsiusBtn.classList.remove('selected');
     farenheitBtn.classList.add('selected');
     setUnits('imperial');
+    updateCitiesGrid();
   };
 
   getUserUnits().then((response) => {
