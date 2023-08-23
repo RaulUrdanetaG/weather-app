@@ -31,12 +31,6 @@ button {
   display: none;
 }
 
-#popup {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
 img {
   width: 1100px;
 }
@@ -66,11 +60,16 @@ img {
       bottom: 45%;
       right: 20px;
     }
+
+    #sign-in-modal,
+    #log-in-modal {
+      top: 400px;
+    }
   }
 
   section {
     #search-city {
-      margin-top: 200px;
+      margin-top: 220px;
     }
   }
 }
@@ -94,8 +93,8 @@ img {
     }
   }
 
-  section{
-    #content-grid{
+  section {
+    #content-grid {
       grid-template-columns: 1fr;
     }
   }
