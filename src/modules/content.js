@@ -73,7 +73,6 @@ export async function createCityWeather(cityName) {
 
   const cityWeather = await makeWeatherRequest(cityName);
 
-  console.log(cityWeather);
   let tempUnits, temp, feelsLike;
   let speedUnits, speed;
   let forecastDays;

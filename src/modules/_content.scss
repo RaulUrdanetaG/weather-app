@@ -89,6 +89,7 @@ section {
       .city-title {
         border-bottom: 2px solid $primary-color;
         padding: 5px 10px;
+
         h5 {
           height: 29px;
         }
@@ -112,6 +113,7 @@ section {
           align-items: center;
           text-align: center;
         }
+
         .current-temp {
           display: flex;
           flex-direction: column;
@@ -129,6 +131,7 @@ section {
         justify-content: space-between;
         padding: 5px 10px;
         border-bottom: 2px solid $primary-color;
+
         .humidity,
         .rain-chance,
         .wind-speed {
@@ -147,7 +150,7 @@ section {
           justify-content: center;
           align-items: center;
 
-          .forecast-date{
+          .forecast-date {
             margin: 5px 0;
           }
           .forecast-sep {
@@ -167,7 +170,8 @@ section {
               flex-direction: column;
               justify-content: space-around;
               padding-left: 5px;
-              h5{
+
+              h5 {
                 font-size: 15px;
               }
             }
