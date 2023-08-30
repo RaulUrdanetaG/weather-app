@@ -129,6 +129,11 @@ section {
         justify-content: space-between;
         padding: 5px 10px;
         border-bottom: 2px solid $primary-color;
+        .humidity,
+        .rain-chance,
+        .wind-speed {
+          text-align: center;
+        }
       }
 
       .forecast {
@@ -137,6 +142,41 @@ section {
         padding: 5px 10px;
 
         .forecast-day {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          .forecast-date{
+            margin: 5px 0;
+          }
+          .forecast-sep {
+            display: flex;
+
+            .left-forecast {
+              display: flex;
+              flex-direction: column;
+              align-items: end;
+              text-align: end;
+              padding-right: 5px;
+              border-right: 2px solid $primary-color;
+            }
+
+            .right-forecast {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              padding-left: 5px;
+              .forecast-rain,
+              .forecast-snow {
+                font-size: 18px;
+              }
+              .forecast-sunrise,
+              .forecast-sunset {
+                font-size: 18px;
+              }
+            }
+          }
           .max-temp {
             font-size: 20px;
           }
