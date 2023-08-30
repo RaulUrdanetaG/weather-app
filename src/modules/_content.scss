@@ -138,7 +138,7 @@ section {
 
       .forecast {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         padding: 5px 10px;
 
         .forecast-day {
@@ -165,15 +165,10 @@ section {
             .right-forecast {
               display: flex;
               flex-direction: column;
-              justify-content: space-between;
+              justify-content: space-around;
               padding-left: 5px;
-              .forecast-rain,
-              .forecast-snow {
-                font-size: 18px;
-              }
-              .forecast-sunrise,
-              .forecast-sunset {
-                font-size: 18px;
+              h5{
+                font-size: 15px;
               }
             }
           }
