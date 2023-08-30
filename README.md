@@ -1,6 +1,6 @@
 # weather app
 
-<img src='src/assets/finalApp.png'/>
+<img src='src/assets/finalApp1.png'/>
 
 # Functionality
 
